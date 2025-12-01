@@ -2,8 +2,8 @@ dayNum = ""
 
 result = 0
 
-with open("input"+dayNum, "r") as file:
+with open("input"+dayNum+".txt", "r") as file:
     for line in file:
-        pass
+        print(line)
 
 print(result)
