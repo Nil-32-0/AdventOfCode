@@ -1,5 +1,5 @@
 dayNum = ""
-simpleInput = True
+fullInput = True
 fileName = "input"+dayNum+".txt" if simpleInput else "in.txt"
 
 # Part 1
@@ -11,7 +11,7 @@ with open(fileName, "r") as file:
         line = line.strip()
         print(line)
 
-print(result)
+print("Part One: ", result)
 
 # Part 2
 result = 0
@@ -21,4 +21,4 @@ with open(fileName, "r") as file:
         line = line.strip()
         print(line)
 
-print(result)
+print("Part Two: ", result)
