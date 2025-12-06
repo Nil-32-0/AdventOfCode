@@ -74,24 +74,20 @@ with open(fileName, "r") as file:
         operator = operators[i]
         problemNums = problems[i]
         vals = []
-        if i != len(problems)-1:
+        if i != len(problems)-1: # Filter out seperator column array
             problemNums = problemNums[:-1]
         for num in problemNums:
             sumNum = 0
             for j in range(len(num)):
                 sumNum += int(num[j])*10**(len(num)-j-1)
             vals.append(sumNum)
-        print(vals)
-        print(operator)
         if operator == "+":
             total = sum(vals)
-            print(total)
             result += total
         else:
             base = 1
             for val in vals:
                 base *= val
-            print(base)
             result += base
 
 print("Part Two: ", result)
