@@ -1,5 +1,5 @@
 dayNum = "7"
-fullInput = False
+fullInput = True
 fileName = "input"+dayNum+".txt" if fullInput else "in.txt"
 
 # Part 1
@@ -25,7 +25,6 @@ print("Part One: ", result)
 
 # Part 2
 result = 0
-beams = set()
 beamWeight = []
 
 with open(fileName, "r") as file:
@@ -34,22 +33,16 @@ with open(fileName, "r") as file:
             beamWeight = [0]*len(line)
         line = line.strip()
         for i in range(len(line)):
-            char = line[i]
+            char = line[i] 
             if char == "S":
-                beams.add(i)
                 beamWeight[i] = 1
             if char == "^":
-                weight = beamWeight[i]
-                if i in beams:
-                    beams.remove(i)
-                beams.add(max(i-1, 0))
                 if i-1 >= 0:
-                    beamWeight[i-1] += weight
-                beams.add(min(i+1, len(line)-1))
+                    beamWeight[i-1] += beamWeight[i]
                 if i+1 < len(line):
-                    beamWeight[i+1] += weight
+                    beamWeight[i+1] += beamWeight[i]
                 beamWeight[i] = 0
 
-        result = sum(beamWeight)
+    result = sum(beamWeight)
 
 print("Part Two: ", result)
