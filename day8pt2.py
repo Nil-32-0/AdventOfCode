@@ -41,34 +41,33 @@ with open(fileName, "r") as file:
         boxList.append((int(x), int(y), int(z)))
         boxes[(int(x), int(y), int(z))] = []
 
-lastDist = 0
-lastPos = None
 x = 0
 total = 0
-while x < len(boxList)-1:
-    dist = 9*10**100
-    connection = None
-    for i in range(len(boxList)):
-        for j in range(i+1, len(boxList)):
-            start = boxList[i]
-            end = boxList[j]
-            if lastDist < distance(start, end) < dist:
-                connection = (start, end)
-                dist = distance(start, end)
-    lastDist = dist
+
+distances = []
+for i in range(len(boxList)):
+    for j in range(i+1, len(boxList)):
+        start = boxList[i]
+        end = boxList[j]
+        dist = distance(start, end)
+        distances.append((dist, start, end))
+distances.sort(key=lambda x:x[0])
+connection = None
+for dist, start, end in distances:
+    if x == len(boxList)-1:
+        break
     total += 1
-    if linked(connection[0], connection[1]):
-        print("Skipped!", " Total:", total)
+
+    if linked(start, end):
         continue
-    boxes[connection[0]].append(connection[1])
-    boxes[connection[1]].append(connection[0])
 
-    lastPos = connection
-
-    print(x)
     x += 1
-print(total)
+    boxes[start].append(end)
+    boxes[end].append(start)
 
+    connection = (start, end)
+
+print("Total iterations:", total)
 result = connection[0][0]*connection[1][0]
 
 print("Part Two: ", result)
